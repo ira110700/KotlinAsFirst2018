@@ -138,12 +138,7 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int {
-    if (sqr(c) < sqr(a) + sqr(b) || sqr(a) < sqr(c) + sqr(b) || sqr(b) < sqr(a) + sqr(c)) return 0
-    if (sqr(c) == sqr(a) + sqr(b) || sqr(a) == sqr(c) + sqr(b) || sqr(b) == sqr(a) + sqr(c)) return 1
-    if (sqr(c) > sqr(a) + sqr(b) || sqr(a) > sqr(c) + sqr(b) || sqr(b) > sqr(a) + sqr(c)) return 2
-    if (a + b < c || b + c < a || a + c < b) return -1
-}
+fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
 
 
 /**
