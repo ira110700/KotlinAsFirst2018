@@ -100,7 +100,7 @@ fun lcm(m: Int, n: Int): Int {
     var k = m * n
     for (i in 1..m * n) {
         if (i % m == 0 && i % n == 0) {
-            k = i
+            k =i
             break
         }
     }
@@ -113,7 +113,7 @@ fun lcm(m: Int, n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    if(isPrime(n)==true)
+    if(isPrime(n) == true)
         return n
     var md = 0
     for (i in 2..n) {
@@ -131,7 +131,7 @@ fun minDivisor(n: Int): Int {
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int {
-    if(isPrime(n)==true)
+    if(isPrime(n) == true)
         return 1
     var maxd = 1
     for (i in (n - 1) downTo 1) {
@@ -239,7 +239,8 @@ fun revert(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean =
+        n == revert(n)
 
 /**
  * Средняя
@@ -269,7 +270,17 @@ fun hasDifferentDigits(n: Int): Boolean {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var number = 1
+    var sqr = 0
+    var l = 0
+    while (l < n) {
+        sqr = number * number
+        l += digitNumber(sqr)
+        number++
+    }
+    return sqr.toString()[digitNumber(sqr) - l + n - 1] - '0'
+}
 
 /**
  * Сложная
