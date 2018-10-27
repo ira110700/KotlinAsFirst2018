@@ -38,7 +38,7 @@ fun isPrime(n: Int): Boolean {
  */
 fun isPerfect(n: Int): Boolean {
     var sum = 1
-    for (m in 2..n/2) {
+    for (m in 2..n / 2) {
         if (n % m > 0) continue
         sum += m
         if (sum > n) break
@@ -67,18 +67,15 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun digitNumber(n: Int): Int {
-    var result = 0
-    var k = n
-    while (k > 0) {
-        result += 1
-        k /= 10
+    var k = 1
+    var N = n
+    if (N < 9) k = 1
+    while (N > 9) {
+        k++
+        N /= 10
     }
-    return when {
-        (n == 0) -> 1
-        else -> result
-    }
+    return k
 }
-
 /**
  * Простая
  *
@@ -100,7 +97,7 @@ fun lcm(m: Int, n: Int): Int {
     var k = m * n
     for (i in 1..m * n) {
         if (i % m == 0 && i % n == 0) {
-            k =i
+            k = i
             break
         }
     }
@@ -113,8 +110,6 @@ fun lcm(m: Int, n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    if(isPrime(n) == true)
-        return n
     var md = 0
     for (i in 2..n) {
         if (n % i == 0) {
@@ -131,8 +126,6 @@ fun minDivisor(n: Int): Int {
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int {
-    if(isPrime(n) == true)
-        return 1
     var maxd = 1
     for (i in (n - 1) downTo 1) {
         if (n % i == 0) {
@@ -186,7 +179,7 @@ fun collatzSteps(x: Int): Int {
     var count = 0
     var k = x
     while (k != 1) {
-        count = count + 1
+        count++
         if (k % 2 == 0)
             k /= 2
         else
@@ -225,7 +218,7 @@ fun revert(n: Int): Int {
     var k = n
     while (k > 0) {
         result = result * 10 + k % 10
-        k = k / 10
+        k /= 10
     }
     return result
 }

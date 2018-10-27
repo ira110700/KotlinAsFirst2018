@@ -71,7 +71,6 @@ fun ageDescription(age: Int): String {
         ((age % 10 in 2..4) && (age % 100 !in 11..14)) -> "$age года"
         else -> "$age лет"
     }
-
 }
 
 /**
@@ -88,7 +87,7 @@ fun timeForHalfWay(t1: Double, v1: Double,
     val s2 = v2 * t2
     val s3 = v3 * t3
     var s = (s1 + s2 + s3) / 2.0
-    if (s1 < s) s = s -s1 else return (s / v1)
+    if (s1 < s) s -= s1 else return (s / v1)
     if (s2 < s) return ((s - s2) / v3 + t1 + t2)
     else return ((s / v2) + t1)
 }
@@ -151,7 +150,7 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     return when {
-        (b<= d) && (a >= c) -> b - a
+        (b <= d) && (a >= c) -> b - a
         (a <= c) && (d <= b) -> d - c
         (a in c..d) -> d - a
         (b in c..d) -> b - c
