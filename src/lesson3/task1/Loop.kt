@@ -1,6 +1,7 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson3.task1
 
+import kotlin.math.pow
 import kotlin.math.sqrt
 
 /**
@@ -272,7 +273,7 @@ fun squareSequenceDigit(n: Int): Int {
         l += digitNumber(sqr)
         number++
     }
-    return sqr.toString()[digitNumber(sqr) - l + n - 1] - '0'
+    return sqr / 10.0.pow(l - n.toDouble()).toInt() % 10
 }
 
 /**

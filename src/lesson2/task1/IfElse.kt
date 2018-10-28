@@ -65,13 +65,12 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String {
-    return when {
-        ((age % 10 == 1) && (age % 100 != 11)) -> "$age год"
-        ((age % 10 in 2..4) && (age % 100 !in 11..14)) -> "$age года"
-        else -> "$age лет"
-    }
+fun ageDescription(age: Int): String = when {
+    ((age % 10 == 1) && (age % 100 != 11)) -> "$age год"
+    ((age % 10 in 2..4) && (age % 100 !in 11..14)) -> "$age года"
+    else -> "$age лет"
 }
+
 
 /**
  * Простая
@@ -106,7 +105,9 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX2: Int, rookY2: Int): Int = when {
     kingX != rookX1 && kingY != rookY1 && kingX != rookX2 && kingY != rookY2 -> 0
     kingX == rookX1 || kingY == rookY1 && kingX != rookX2 && kingY != rookY2 -> 1
-    kingX != rookX1 && kingY != rookY1 && kingX == rookX2 || kingY == rookY2 -> 2
+    kingX == rookX1 || kingY != rookY1 && kingX != rookX2 && kingY != rookY2 -> 1
+    kingX != rookX1 && kingY != rookY1 && kingX == rookX2 && kingY != rookY2 -> 2
+    kingX != rookX1 && kingY != rookY1 && kingX != rookX2 && kingY == rookY2 -> 2
     else -> 3
 }
 
@@ -124,7 +125,8 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
                           bishopX: Int, bishopY: Int): Int {
     if ((kingX != rookX) && (kingY != rookY) && (abs(kingX - bishopX) != abs(kingY - bishopY))) return 0
-    if ((kingX == rookX) || (kingY == rookY) && (abs(kingX - bishopX) != abs(kingY - bishopY))) return 1
+    if ((kingX == rookX) && (kingY != rookY) && (abs(kingX - bishopX) != abs(kingY - bishopY))) return 1
+    if ((kingX != rookX) && (kingY == rookY) && (abs(kingX - bishopX) != abs(kingY - bishopY))) return 1
     if ((kingX != rookX) && (kingY != rookY) && (abs(kingX - bishopX) == abs(kingY - bishopY))) return 2
     else return 3
 }
