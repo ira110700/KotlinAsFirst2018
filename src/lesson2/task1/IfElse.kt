@@ -123,12 +123,12 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
  */
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
-                          bishopX: Int, bishopY: Int): Int {
-    if ((kingX != rookX) && (kingY != rookY) && (abs(kingX - bishopX) != abs(kingY - bishopY))) return 0
-    if ((kingX == rookX) && (kingY != rookY) && (abs(kingX - bishopX) != abs(kingY - bishopY))) return 1
-    if ((kingX != rookX) && (kingY == rookY) && (abs(kingX - bishopX) != abs(kingY - bishopY))) return 1
-    if ((kingX != rookX) && (kingY != rookY) && (abs(kingX - bishopX) == abs(kingY - bishopY))) return 2
-    else return 3
+                          bishopX: Int, bishopY: Int): Int = when {
+    ((kingX != rookX) && (kingY != rookY) && (abs(kingX - bishopX) != abs(kingY - bishopY))) -> 0
+    ((kingX == rookX) && (kingY != rookY) && (abs(kingX - bishopX) != abs(kingY - bishopY))) -> 1
+    ((kingX != rookX) && (kingY == rookY) && (abs(kingX - bishopX) != abs(kingY - bishopY))) -> 1
+    ((kingX != rookX) && (kingY != rookY) && (abs(kingX - bishopX) == abs(kingY - bishopY))) -> 2
+    else -> 3
 }
 
 /**
@@ -150,12 +150,5 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    return when {
-        (b <= d) && (a >= c) -> b - a
-        (a <= c) && (d <= b) -> d - c
-        (a in c..d) -> d - a
-        (b in c..d) -> b - c
-        else -> -1
-    }
-}
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int =
+        max(minOf(b,d) - maxOf(a,c), -1)
