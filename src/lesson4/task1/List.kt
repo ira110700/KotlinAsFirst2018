@@ -3,6 +3,7 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
+import java.lang.Math.pow
 import kotlin.math.sqrt
 
 /**
@@ -115,13 +116,8 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>): Double {
-    return if (v.isEmpty()) 0.0
-    else {
-        val k = v.map { it * it }
-        sqrt(k.sum())
-    }
-}
+fun abs(v: List<Double>): Double = if (v.isEmpty()) 0.0 else sqrt(v.map { it * it }.sum())
+
 
 /**
  * Простая
@@ -140,10 +136,9 @@ fun mean(list: List<Double>): Double = if (list.isEmpty()) 0.0 else list.sum() /
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
+    if (list.isEmpty()) return list
     val k = mean(list)
-    for (i in 0 until list.size) {
-        list[i] = list[i] - k
-    }
+    list.replaceAll { it - k }
     return list
 }
 
@@ -154,13 +149,8 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.0.
  */
-fun times(a: List<Double>, b: List<Double>): Double {
-    var k = 0.0
-    for (i in 0 until a.size) {
-        k += a[i] * b[i]
-    }
-    return k
-}
+fun times(a: List<Double>, b: List<Double>): Double = a.zip(b).fold(0.0)
+{ previousResult, (first, second) -> previousResult + first * second }
 
 /**
  * Средняя
@@ -171,13 +161,11 @@ fun times(a: List<Double>, b: List<Double>): Double {
  * Значение пустого многочлена равно 0.0 при любом x.
  */
 fun polynom(p: List<Double>, x: Double): Double {
-    var polynom = 0.0
-    var k = 1.0
+    val sum = mutableListOf<Double>()
     for (i in 0 until p.size) {
-        polynom += p[i] * k
-        k *= x
+        sum.add(pow(x, i.toDouble()))
     }
-    return polynom
+    return times(sum, p)
 }
 
 /**
@@ -192,11 +180,9 @@ fun polynom(p: List<Double>, x: Double): Double {
  */
 fun accumulate(list: MutableList<Double>): MutableList<Double> {
     var s = 0.0
-    if (list.isNotEmpty()) {
-        for (i in 0 until list.size) {
-            s += list[i]
-            list[i] = s
-        }
+    for (i in 0 until list.size) {
+        s += list[i]
+        list[i] = s
     }
     return list
 }
@@ -216,8 +202,8 @@ fun factorize(n: Int): List<Int> {
     while (m <= k) {
         if (k % m == 0) {
             spisok.add(m)
-            k = k/m
-        } else { m++ }
+            k /= m
+        } else m++
     }
     return spisok
 }
@@ -241,6 +227,7 @@ fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*
 fun convert(n: Int, base: Int): List<Int> {
     val result = mutableListOf<Int>()
     var x = n
+    if (x == 0) return listOf(0)
     while (x > 0) {
         result.add(x % base)
         x /= base
