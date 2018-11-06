@@ -69,11 +69,11 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  */
 fun digitNumber(n: Int): Int {
     var k = 0
-    var N = n
-    if (N == 0) return 1
-    while (N != 0) {
+    var m = n
+    if (m == 0) return 1
+    while (m != 0) {
         k++
-        N /= 10
+        m /= 10
     }
     return k
 }
@@ -91,7 +91,6 @@ fun fib(n: Int): Int {
         p = number
         number += l
         l = p
-
     }
     return number
 }
@@ -108,13 +107,13 @@ fun fib(n: Int): Int {
  */
 fun lcm(m: Int, n: Int): Int {
     val k = m * n
-    var N = n
-    var M = m
-    while (N != 0 && M != 0) {
-        if (N > M) N %= M
-        else M %= N
+    var s = n
+    var w = m
+    while (s != 0 && w != 0) {
+        if (s > w) s %= w
+        else w %= s
     }
-    return k / (N + M)
+    return k / (s + w)
 }
 
 /**
@@ -250,7 +249,7 @@ fun isPalindrome(n: Int): Boolean =
 fun hasDifferentDigits(n: Int): Boolean {
     val first = n % 10
     var k = n / 10
-    while (k > 0){
+    while (k > 0) {
         if (k % 10 != first)
             return true
         k /= 10
