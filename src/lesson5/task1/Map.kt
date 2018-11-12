@@ -133,10 +133,10 @@ return res
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
 fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
-    for ((key, value) in b) {
-        if (a[key] == value && key in a) return true
+    for ((key, value) in a) {
+        if (b[key] != value) return false
     }
-    return false
+    return true
 }
 
 /**
@@ -222,11 +222,8 @@ fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
  */
 fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
     val res = mutableListOf<String>()
-    for (i in 0 until a.size) {
-        for (j in 0 until b.size) {
-            if (a[i] == b[j]) res.add(a[i])
-        }
-    }
+    res.addAll(a)
+    res.retainAll(b)
     return res
 }
 
@@ -239,13 +236,8 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean {
-    val res = word.toLowerCase().toList()
-    for (i in 0 until res.size) {
-        if (res[i] !in chars) return false
-    }
-    return chars.isEmpty() && word == "" || chars.isNotEmpty()
-}
+fun canBuildFrom(chars: List<Char>, word: String): Boolean = chars.containsAll(word.toLowerCase().toList())
+
 
 /**
  * Средняя
