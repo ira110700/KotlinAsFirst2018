@@ -222,8 +222,10 @@ fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
  */
 fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
     val res = mutableListOf<String>()
-    for (i in 0 until b.size) {
-        if (a[i] == b[i]) res.add(a[i])
+    for (i in 0 until a.size) {
+        for (j in 0 until b.size) {
+            if (a[i] == b[j]) res.add(a[i])
+        }
     }
     return res
 }
