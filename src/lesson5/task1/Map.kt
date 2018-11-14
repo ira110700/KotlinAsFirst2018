@@ -2,6 +2,9 @@
 
 package lesson5.task1
 
+import kotlinx.html.A
+import kotlinx.html.B
+
 /**
  * Пример
  *
@@ -169,6 +172,7 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  */
 fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? = TODO()
 
+
 /**
  * Сложная
  *
@@ -221,10 +225,10 @@ fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
  * Для двух списков людей найти людей, встречающихся в обоих списках
  */
 fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
-    val res = mutableListOf<String>()
-    res.addAll(a)
-    res.retainAll(b)
-    return res
+    val together = mutableListOf<String>()
+    together.addAll(a)
+    together.retainAll(b)
+    return together.toList()
 }
 
 /**
@@ -236,7 +240,8 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean = chars.containsAll(word.toLowerCase().toList())
+fun canBuildFrom(chars: List<Char>, word: String): Boolean = chars.containsAll(word.toList())
+
 
 
 /**
@@ -292,7 +297,17 @@ fun hasAnagrams(words: List<String>): Boolean {
  *   findSumOfTwo(listOf(1, 2, 3), 4) -> Pair(0, 2)
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
-fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
+fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
+    if (list.isEmpty()) return Pair(-1, -1)
+    for (i in 0 until list.size) {
+        for (j in i + 1 until list.size) {
+            if (list[i] + list[j] == number) {
+                return if (i < j) Pair(i, j) else Pair(j, i)
+            }
+        }
+    }
+    return Pair(-1, -1)
+}
 
 /**
  * Очень сложная
