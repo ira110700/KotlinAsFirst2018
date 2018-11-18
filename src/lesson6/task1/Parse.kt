@@ -81,7 +81,7 @@ fun dateStrToDigit(str: String): String {
         if (res[0] !in 1..31 || res[1] !in 1..12 || parts.size != 3)
             throw NumberFormatException()
         if (res[0] > daysInMonth(res[1], res[2])) throw NumberFormatException()
-        String.format("%02d.%02d.%02d", res[0], res[1], res[2])
+        String.format("%02d.%02d.%d", res[0], res[1], res[2])
     } catch (e: Exception) {
         ""
     }
