@@ -172,13 +172,15 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  */
 fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
     var res: String? = null
-    val mincost = Double.MAX_VALUE
+    var mincost = Double.MAX_VALUE
     for ((key, pair) in stuff) {
         if (kind == pair.first) {
-            if (mincost >= pair.second) res = key
+            if (mincost >= pair.second)
+                res = key
+            mincost = pair.second
         }
     }
-    return res
+    return if (mincost != Double.MAX_VALUE && kind != "") res else null
 }
 
 
