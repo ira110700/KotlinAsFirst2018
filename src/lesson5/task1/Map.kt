@@ -104,7 +104,7 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
         if (mapRes[name] == null) mapRes[name] = phone
         else if (mapRes[name] != phone) mapRes[name] = mapRes[name] + ", " + phone
     }
-return mapRes
+    return mapRes
 }
 /**
  * Простая
@@ -119,10 +119,11 @@ return mapRes
 fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
     val res = mutableMapOf<Int, MutableList<String>>()
     for ((key, value) in grades) {
-        if (res[value] != null) res[value]!!.add(key)
+        val par = res[value]
+        if (par != null) par.add(key)
         else res[value] = mutableListOf(key)
     }
-return res
+    return res
 }
 
 /**
@@ -171,16 +172,17 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *   ) -> "Мария"
  */
 fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
-    var res: String? = null
+    var res = ""
     var mincost = Double.MAX_VALUE
     for ((key, pair) in stuff) {
         if (kind == pair.first) {
-            if (mincost >= pair.second)
+            if (mincost >= pair.second) {
                 res = key
-            mincost = pair.second
+                mincost = pair.second
+            }
         }
     }
-    return if (mincost != Double.MAX_VALUE && kind != "") res else null
+    return if (res.isNotEmpty() && mincost != Double.MAX_VALUE) res else null
 }
 
 
@@ -246,7 +248,11 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = TODO()
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean = chars.map { it.toLowerCase() }.containsAll(word.toLowerCase().toList())
+fun canBuildFrom(chars: List<Char>, word: String): Boolean {
+    val res = chars.toSet()
+    return word.toLowerCase().all { it.toLowerCase() in res }
+}
+
 
 
 
@@ -279,9 +285,10 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
  *   hasAnagrams(listOf("тор", "свет", "рот")) -> true
  */
 fun hasAnagrams(words: List<String>): Boolean {
-    for (i in 0 until words.size) {
-        for (j in i + 1 until words.size)
-            if (words[i] == words[j] || words[i] == words[j].reversed()) return true
+    for (i in words) {
+        val res = words.toSet()
+        for (j in res - i)
+            if (i == j || i == j.reversed()) return true
     }
     return false
 }
