@@ -51,12 +51,10 @@ fun main(args: Array<String>) {
         val seconds = timeStrToSeconds(line)
         if (seconds == -1) {
             println("Введённая строка $line не соответствует формату ЧЧ:ММ:СС")
-        }
-        else {
+        } else {
             println("Прошло секунд с начала суток: $seconds")
         }
-    }
-    else {
+    } else {
         println("Достигнут <конец файла> в процессе чтения строки. Программа прервана")
     }
 }
@@ -141,7 +139,20 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int = TODO()
+fun bestLongJump(jumps: String): Int {
+    val parts = jumps.split(" ")
+    var maxJump = 0
+    try {
+        for (part in parts) {
+            if (part !in "%-" && part.toInt() > maxJump)
+                maxJump = part.toInt()
+        }
+    } catch (e: NumberFormatException) {
+        return -1
+    }
+    return if (maxJump == 0) -1 else maxJump
+}
+
 
 /**
  * Сложная
@@ -153,7 +164,19 @@ fun bestLongJump(jumps: String): Int = TODO()
  * Прочитать строку и вернуть максимальную взятую высоту (230 в примере).
  * При нарушении формата входной строки вернуть -1.
  */
-fun bestHighJump(jumps: String): Int = TODO()
+fun bestHighJump(jumps: String): Int {
+    val parts = jumps.split(" ")
+    var maxJump = 0
+    try {
+        for (i in 0 until parts.size step 2) {
+            if (parts[i].toInt() > maxJump && parts[i + 1] == "+")
+                maxJump = parts[i].toInt()
+        }
+    } catch (e: NumberFormatException) {
+        return -1
+    }
+    return if (maxJump == 0) -1 else maxJump
+}
 
 /**
  * Сложная
@@ -196,7 +219,24 @@ fun firstDuplicateIndex(str: String): Int {
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть больше либо равны нуля.
  */
-fun mostExpensive(description: String): String = TODO()
+fun mostExpensive(description: String): String {
+    val parts = description.split(" ", "; ")
+    var max = 0.0
+    var name = ""
+    try {
+        for (i in 0 until parts.size - 1 step 2) {
+            if (parts[i + 1].toDouble() < 0) throw NumberFormatException()
+            if (parts[i + 1].toDouble() > max) {
+                max = parts[i + 1].toDouble()
+                name = parts[i]
+            }
+        }
+    } catch (e: NumberFormatException) {
+        return ""
+    }
+    return name
+}
+
 
 /**
  * Сложная
