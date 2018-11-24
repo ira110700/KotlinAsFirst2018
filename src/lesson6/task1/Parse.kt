@@ -221,7 +221,7 @@ fun firstDuplicateIndex(str: String): Int {
  */
 fun mostExpensive(description: String): String {
     val parts = description.split(" ", "; ")
-    var max = 0.0
+    var max = -1.0
     var name = ""
     try {
         for (i in 0 until parts.size - 1 step 2) {
