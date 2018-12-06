@@ -4,6 +4,7 @@ package lesson5.task1
 
 import kotlinx.html.A
 import kotlinx.html.B
+import lesson3.task1.squareSequenceDigit
 
 /**
  * Пример
@@ -179,6 +180,7 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
             if (mincost >= pair.second) {
                 res = key
                 mincost = pair.second
+                if (res == "") return ""
             }
         }
     }
@@ -313,12 +315,11 @@ fun hasAnagrams(words: List<String>): Boolean {
  */
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
     if (list.isEmpty()) return Pair(-1, -1)
+    val res = mutableMapOf<Int, Int>()
     for (i in 0 until list.size) {
-        for (j in i + 1 until list.size) {
-            if (list[i] + list[j] == number) {
-                return if (i < j) Pair(i, j) else Pair(j, i)
-            }
-        }
+        val element = number - list[i]
+        if (element in res) return Pair(res[element - i] ?: 0, i)
+        else res[list[i]] = i
     }
     return Pair(-1, -1)
 }

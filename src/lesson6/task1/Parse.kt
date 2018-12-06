@@ -77,10 +77,8 @@ fun dateStrToDigit(str: String): String {
             "сентября", "октября", "ноября", "декабря")
     return try {
         val res = listOf(parts[0].toInt(), month.indexOf(parts[1]) + 1, parts[2].toInt())
-        if (res[1] !in 1..12 || parts.size != 3)
-            throw Exception()
-        if (res[0] > daysInMonth(res[1], res[2]))
-            throw Exception()
+        if (res[1] !in 1..12 || parts.size != 3) return ""
+        if (res[0] > daysInMonth(res[1], res[2])) return ""
         String.format("%02d.%02d.%d", res[0], res[1], res[2])
     } catch (e: Exception) {
         ""
@@ -103,10 +101,8 @@ fun dateDigitToStr(digital: String): String {
     val month = listOf("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа",
             "сентября", "октября", "ноября", "декабря")
     return try {
-        if (parts[1].toInt() !in 1..12 || parts.size != 3)
-            throw Exception()
-        if (parts[0].toInt() > daysInMonth(parts[1].toInt(), parts[2].toInt()))
-            throw Exception()
+        if (parts[1].toInt() !in 1..12 || parts.size != 3) return ""
+        if (parts[0].toInt() > daysInMonth(parts[1].toInt(), parts[2].toInt())) return ""
         val months = month[parts[1].toInt() - 1]
         return String.format("%d %s %d", parts[0].toInt(), months, parts[2].toInt())
     } catch (e: Exception) {
@@ -221,7 +217,7 @@ fun firstDuplicateIndex(str: String): Int {
  */
 fun mostExpensive(description: String): String {
     val parts = description.split(" ", "; ")
-    var max = -1.0
+    var max = -Double.MAX_VALUE
     var name = ""
     try {
         for (i in 0 until parts.size - 1 step 2) {
