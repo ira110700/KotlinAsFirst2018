@@ -162,16 +162,16 @@ fun bestLongJump(jumps: String): Int {
  */
 fun bestHighJump(jumps: String): Int {
     val parts = jumps.split(" ")
-    var maxJump = 0
+    var maxJump = -Double.MAX_VALUE
     try {
         for (i in 0 until parts.size step 2) {
             if (parts[i].toInt() > maxJump && parts[i + 1].contains("+"))
-                maxJump = parts[i].toInt()
+                maxJump = parts[i].toDouble()
         }
     } catch (e: NumberFormatException) {
         return -1
     }
-    return if (maxJump == 0) -1 else maxJump
+    return if (maxJump == -Double.MAX_VALUE) -1 else maxJump.toInt()
 }
 
 /**
