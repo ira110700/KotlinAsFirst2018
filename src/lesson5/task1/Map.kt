@@ -107,6 +107,7 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
     }
     return mapRes
 }
+
 /**
  * Простая
  *
@@ -180,11 +181,10 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
             if (mincost >= pair.second) {
                 res = key
                 mincost = pair.second
-                if (res == "") return ""
             }
         }
     }
-    return if (res.isNotEmpty() && mincost != Double.MAX_VALUE) res else null
+    return if (mincost != Double.MAX_VALUE) res else null
 }
 
 
@@ -257,8 +257,6 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean {
 }
 
 
-
-
 /**
  * Средняя
  *
@@ -288,10 +286,12 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
  *   hasAnagrams(listOf("тор", "свет", "рот")) -> true
  */
 fun hasAnagrams(words: List<String>): Boolean {
-    for (i in words) {
-        val res = words.toSet()
-        for (j in res - i)
-            if (i == j || i == j.reversed()) return true
+    if (words.isEmpty()) return false
+    val res = mutableSetOf<List<Char>>()
+    for (it in words) {
+        if (it.toList().sorted() in res)
+            return true else
+            res.add(it.toList().sorted())
     }
     return false
 }
