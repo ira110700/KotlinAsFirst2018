@@ -118,7 +118,20 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    TODO()
+    val res = File(outputName).bufferedWriter()
+    val text = File(inputName).readLines()
+    var max = -1
+    for (line in text) {
+        if (line.trim().length >= max)
+            max = line.length
+    }
+    for (line in text) {
+        if (line.trim().length != max) {
+            res.write(" ".repeat((max - line.trim().length) / 2) + line.trim())
+        } else res.write(line)
+        res.newLine()
+    }
+    res.close()
 }
 
 /**
